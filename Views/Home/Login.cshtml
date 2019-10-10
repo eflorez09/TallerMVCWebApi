@@ -1,0 +1,38 @@
+﻿@model TallerMVCWebApi.Models.LoginViewModel
+
+@{
+    ViewData["Title"] = "Iniciar Sesión";
+}
+
+<div class="container account-login-container">
+    <div class="row">
+        <div class="col-md-2">
+            <section>
+                <form method="post">
+                    <div class="form-group">
+                        <label asp-for="UserName"></label>
+                        <input asp-for="UserName" class="form-control" />
+                        <span asp-validation-for="UserName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Password"></label>
+                        <input asp-for="Password" class="form-control" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+                    </div>
+                </form>
+            </section>
+        </div>
+    </div>
+    <p>
+        Para ingresar debe usar las siguientes credenciales:
+    </p>
+    <p>
+        Usuario: <b>admin@pica.com</b>
+    </p>
+    <p>
+        Password: <b>admin</b>
+    </p>
+</div>
