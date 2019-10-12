@@ -5,9 +5,9 @@ namespace TallerMVCWebApi.Authorization
 {
     public class AppIdentityDbContextSeed
     {
-        public static void SeedAsync(UserManager<IdentityUser> userManager)
+        public static void SeedAsync(UserManager<ApplicationUser> userManager)
         {
-            IdentityUser identityUser = new IdentityUser
+            ApplicationUser applicationUser = new ApplicationUser
             {
                 UserName = "admin@pica.com",
                 Email = "admin@pica.com"
@@ -15,7 +15,7 @@ namespace TallerMVCWebApi.Authorization
 
             Task.Run(async () =>
             {
-                await userManager.CreateAsync(identityUser, "admin");
+                await userManager.CreateAsync(applicationUser, "admin");
             }).Wait();
         }
     }

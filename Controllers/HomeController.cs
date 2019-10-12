@@ -23,7 +23,6 @@ namespace TallerMVCWebApi.Controllers
             return View();
         }
 
-        [Authorize]
         public IActionResult Contact()
         {
             return View();

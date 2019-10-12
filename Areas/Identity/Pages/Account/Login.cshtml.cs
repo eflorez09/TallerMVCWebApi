@@ -1,27 +1,28 @@
-using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Logging;
+using TallerMVCWebApi.Authorization;
+using TallerMVCWebApi.Models;
 
 namespace TallerMVCWebApi.Areas.Identity.Pages.Account
 {
+    [AllowAnonymous]
     public class LoginModel : PageModel
     {
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
 
-        public LoginModel(SignInManager<IdentityUser> signInManager)
+        public LoginModel(SignInManager<ApplicationUser> signInManager)
         {
             _signInManager = signInManager;
         }
 
         [BindProperty]
-        public InputModel Input { get; set; }
+        public LoginViewModel Login { get; set; }
 
         public IList<AuthenticationScheme> ExternalLogins { get; set; }
 
@@ -29,17 +30,6 @@ namespace TallerMVCWebApi.Areas.Identity.Pages.Account
 
         [TempData]
         public string ErrorMessage { get; set; }
-
-        public class InputModel
-        {
-            [Required]
-            [EmailAddress]
-            public string Email { get; set; }
-
-            [Required]
-            [DataType(DataType.Password)]
-            public string Password { get; set; }
-        }
 
         public async Task OnGetAsync(string returnUrl = null)
         {
@@ -63,7 +53,7 @@ namespace TallerMVCWebApi.Areas.Identity.Pages.Account
 
             if (ModelState.IsValid)
             {
-                var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, false, lockoutOnFailure: true);
+                var result = await _signInManager.PasswordSignInAsync(Login.UserName, Login.Password, true, lockoutOnFailure: true);
 
                 if (result.Succeeded)
                 {

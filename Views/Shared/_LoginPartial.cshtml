@@ -1,17 +1,20 @@
-﻿@using Microsoft.AspNetCore.Identity
-@inject SignInManager<IdentityUser> SignInManager
-@inject UserManager<IdentityUser> UserManager
-
-<ul class="navbar-nav">
-    @if (SignInManager.IsSignedIn(User))
-    {
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Bienvenido @User.Identity.Name!</a>
-        </li>
-        <li class="nav-item">
-            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                <button type="submit" class="nav-link btn btn-link text-dark">Cerrar Sesión</button>
+﻿@if (Context.User.Identity.IsAuthenticated)
+{
+    <section class="col-lg-4 col-md-5 col-xs-12">
+        <div class="esh-identity">
+            <form asp-area="Identity" asp-page="/Account/Logout" method="post" id="logoutForm" class="navbar-right">
+                <section class="esh-identity-section">
+                    <div class="esh-identity-name">@Context.User.Identity.Name</div>
+                    <img class="esh-identity-image" src="~/images/arrow-down.png">
+                </section>
+                <section class="esh-identity-drop">
+                    <a class="esh-identity-item"
+                       href="javascript:document.getElementById('logoutForm').submit()">
+                        <div class="esh-identity-name esh-identity-name--upper">Cerrar Sesión</div>
+                        <img class="esh-identity-image" src="~/images/logout.png">
+                    </a>
+                </section>
             </form>
-        </li>
-    }
-</ul>
+        </div>
+    </section>
+}
